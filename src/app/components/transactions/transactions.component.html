@@ -1,0 +1,27 @@
+<div class="transactions-container">
+  <h2>Transactions</h2>
+  
+
+  <form (submit)="getTransactions(); $event.preventDefault()" class="form-inline">
+    <input id="sellerIdTrans" type="text" [(ngModel)]="sellerId" name="sellerId" required class="input-text" placeholder="Enter Seller ID" />
+    <button type="submit" class="btn-primary">Load Transactions</button>
+  </form>
+
+  <div *ngIf="loading" class="loading">Loading transactions...</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <ul *ngIf="transactions.length > 0" class="transactions-list">
+    <li *ngFor="let t of transactions" class="transaction-item">
+      <img [src]="t.image" alt="{{ t.title }}" class="transaction-img" />
+      <div class="transaction-details">
+        <strong>{{ t.title }}</strong>
+        <span>{{ t.price | currency:'EGP' }}</span>
+        <small>Last updated: {{ t.last_updated | date:'medium' }}</small>
+      </div>
+    </li>
+  </ul>
+
+  <div *ngIf="hasSearched && transactions.length === 0" class="no-transactions">
+    <p>No transactions found for Seller ID: {{ sellerId }}</p>
+  </div>
+</div>
