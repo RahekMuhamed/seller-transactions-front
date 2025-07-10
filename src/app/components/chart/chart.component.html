@@ -1,0 +1,25 @@
+<div class="chart-container">
+  <h2>Sales Summary</h2>
+
+  <div class="form-group">
+    <input
+      type="text"
+      [(ngModel)]="sellerId"
+      placeholder="Enter Seller ID"
+      class="input"
+    />
+    <button (click)="loadChart()" class="btn">Load Chart</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading summary...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="chartData.datasets[0].data.length > 0" class="chart-box">
+    <canvas
+      baseChart
+      [data]="chartData"
+      [type]="chartType"
+      [options]="chartOptions"
+    ></canvas>
+  </div>
+</div>
